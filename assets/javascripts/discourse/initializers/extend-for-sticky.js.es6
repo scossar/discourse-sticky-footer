@@ -7,8 +7,8 @@ export default {
   name: 'extend-for-sticky',
   initialize() {
 
-    const stickFooter = function() {
-      let $footer = $('#sticky-footer'),
+    const stickFooter = function(footer) {
+      let $footer = $(footer),
         footerHeight = $footer.outerHeight(),
         footerOffset = $footer.offset(),
         footerBottom;
@@ -35,11 +35,11 @@ export default {
     ApplicationView.reopen({
       didInsertElement: function() {
         this._super();
-        stickFooter();
+        stickFooter('#' + this.siteSettings.sticky_footer_id);
       },
       pathChanged: function() {
         Ember.run.scheduleOnce('afterRender', this, function() {
-          stickFooter();
+          stickFooter('#' + this.siteSettings.sticky_footer_id);
         });
       }.observes('controller.currentPath', 'controller.model')
     });
@@ -47,11 +47,11 @@ export default {
     DiscoveryCategorysView.reopen({
       didInsertElement: function() {
         this._super();
-        stickFooter();
+        stickFooter('#' + this.siteSettings.sticky_footer_id);
       },
       pathChanged: function() {
         Ember.run.scheduleOnce('afterRender', this, function() {
-          stickFooter();
+          stickFooter('#' + this.siteSettings.sticky_footer_id);
         });
       }.observes('controller.currentPath', 'controller.model')
     });
@@ -59,11 +59,11 @@ export default {
     DiscoveryTopicsView.reopen({
       didInsertElement: function() {
         this._super();
-        stickFooter();
+        stickFooter('#' + this.siteSettings.sticky_footer_id);
       },
       pathChanged: function() {
         Ember.run.scheduleOnce('afterRender', this, function() {
-          stickFooter();
+          stickFooter('#' + this.siteSettings.sticky_footer_id);
         });
       }.observes('controller.currentPath', 'controller.model')
     });
@@ -71,11 +71,11 @@ export default {
     CloakedView.reopen({
       didInsertElement: function() {
         this._super();
-        stickFooter();
+        stickFooter('#' + this.siteSettings.sticky_footer_id);
       },
       pathChanged: function() {
         Ember.run.scheduleOnce('afterRender', this, function() {
-          stickFooter();
+          stickFooter('#' + this.siteSettings.sticky_footer_id);
         });
       }.observes('controller.currentPath', 'controller.model')
     });

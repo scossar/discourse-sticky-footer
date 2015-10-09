@@ -1,6 +1,6 @@
 # name: sticky-footer
-# about: stick footer to bottom of page
+# about: A sticky footer for Discourse
 # version: 0.1
 # authors: scossar
 
-register_asset 'stylesheets/sticky-footer.scss'
+enabled_site_setting :sticky_footer_enabled

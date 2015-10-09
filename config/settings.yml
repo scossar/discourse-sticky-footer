@@ -1,0 +1,7 @@
+plugins:
+  sticky_footer_enabled:
+    default: true
+    client: true
+  sticky_footer_id:
+    default: "sticky-footer"
+    client: true

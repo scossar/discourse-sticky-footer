@@ -1,0 +1,4 @@
+en:
+  site_settings:
+    sticky_footer_enabled: "Enable sticky footers?"
+    sticky_footer_id: "Set the id for your footer (defaults to 'sticky-footer')"
