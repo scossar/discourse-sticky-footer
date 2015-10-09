@@ -11,3 +11,7 @@ Follow the [Install a Plugin](https://meta.discourse.org/t/install-a-plugin/1915
 
 Once you've installed it, review the settings under plugins in the admin section of your
 forum.
+
+### Use
+Create a footer by adding markup to the `Footer` section of `Admin>Customize>CSS/HTML`.
+Give your footer an id of `#sticky-footer`.
