@@ -2,6 +2,8 @@ import ApplicationView from 'discourse/views/application';
 import DiscoveryCategorysView from 'discourse/views/discovery-categories';
 import DiscoveryTopicsView from 'discourse/views/discovery-topics';
 import CloakedView from 'discourse/views/cloaked';
+import LoadingView from 'discourse/views/loading';
+import HeaderView from 'discourse/views/header'
 
 export default {
   name: 'extend-for-sticky',
@@ -75,6 +77,21 @@ export default {
       },
       pathChanged: function() {
         Ember.run.scheduleOnce('afterRender', this, function() {
+          stickFooter('#' + this.siteSettings.sticky_footer_id);
+        });
+      }.observes('controller.currentPath', 'controller.model')
+    });
+
+
+    LoadingView.reopen({
+      didInsertElement: function() {
+        this._super();
+        console.log('this is from the loading view init');
+        stickFooter('#' + this.siteSettings.sticky_footer_id);
+      },
+      pathChanged: function() {
+        Ember.run.scheduleOnce('beforeRender', this, function() {
+          console.log('this is from the loading view change');
           stickFooter('#' + this.siteSettings.sticky_footer_id);
         });
       }.observes('controller.currentPath', 'controller.model')

@@ -1,0 +1,5 @@
+// keeps the footer from popping up under the loading spinner
+.list-container.hidden {
+  display: block;
+  visibility: hidden;
+}
