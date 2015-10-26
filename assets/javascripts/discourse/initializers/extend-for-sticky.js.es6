@@ -1,15 +1,14 @@
 import ApplicationView from 'discourse/views/application';
 import DiscoveryCategorysView from 'discourse/views/discovery-categories';
 import DiscoveryTopicsView from 'discourse/views/discovery-topics';
-import CloakedView from 'discourse/views/cloaked';
-import LoadingView from 'discourse/views/loading';
-import HeaderView from 'discourse/views/header'
+import TopicView from 'discourse/views/topic';
+import PostView from 'discourse/views/post';
 
 export default {
   name: 'extend-for-sticky',
   initialize() {
 
-    const stickFooter = function(footer) {
+    const stickFooter = function (footer, container) {
       let $footer = $(footer),
         footerHeight = $footer.outerHeight(),
         footerOffset = $footer.offset(),
@@ -26,74 +25,78 @@ export default {
             'bottom': 0
           });
           // In case the window is resized upwards
-          $('#main').css('padding-bottom', footerHeight + "px");
-        } else {
-          $footer.css('position', 'static');
-          $('#main').css('padding-bottom', 0);
+          $(container).css('padding-bottom', footerHeight + "px");
         }
       }
     };
 
+    const unstickFooter = function (footer, container) {
+      $(footer).css('position', 'static');
+      $(container).css('padding-bottom', 0);
+    };
+
+    const footerId = function(context) {
+      return '#' + context.siteSettings.sticky_footer_id;
+    };
+
     ApplicationView.reopen({
-      didInsertElement: function() {
-        this._super();
-        stickFooter('#' + this.siteSettings.sticky_footer_id);
-      },
-      pathChanged: function() {
-        Ember.run.scheduleOnce('afterRender', this, function() {
-          stickFooter('#' + this.siteSettings.sticky_footer_id);
+      stick: function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
+          stickFooter(footerId(this), '#main');
         });
-      }.observes('controller.currentPath', 'controller.model')
+      }.on('didInsertElement').observes('controller.currentPath'),
+
+      unstick: function () {
+        unstickFooter(footerId(this), '#main');
+      }.on('willDestroyElement'),
     });
 
     DiscoveryCategorysView.reopen({
-      didInsertElement: function() {
-        this._super();
-        stickFooter('#' + this.siteSettings.sticky_footer_id);
-      },
-      pathChanged: function() {
-        Ember.run.scheduleOnce('afterRender', this, function() {
-          stickFooter('#' + this.siteSettings.sticky_footer_id);
+      stick: function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
+          stickFooter(footerId(this), '#main');
         });
-      }.observes('controller.currentPath', 'controller.model')
+      }.on('didInsertElement'),
+
+      unstick: function () {
+        unstickFooter(footerId(this), '#main');
+      }.on('willDestroyElement'),
     });
 
     DiscoveryTopicsView.reopen({
-      didInsertElement: function() {
-        this._super();
-        stickFooter('#' + this.siteSettings.sticky_footer_id);
-      },
-      pathChanged: function() {
-        Ember.run.scheduleOnce('afterRender', this, function() {
-          stickFooter('#' + this.siteSettings.sticky_footer_id);
+      stick: function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
+          stickFooter(footerId(this), '#main');
         });
-      }.observes('controller.currentPath', 'controller.model')
+      }.on('didInsertElement'),
+
+      unstick: function () {
+        unstickFooter(footerId(this), '#main');
+      }.on('willDestroyElement'),
     });
 
-    CloakedView.reopen({
-      didInsertElement: function() {
-        this._super();
-        stickFooter('#' + this.siteSettings.sticky_footer_id);
-      },
-      pathChanged: function() {
-        Ember.run.scheduleOnce('afterRender', this, function() {
-          stickFooter('#' + this.siteSettings.sticky_footer_id);
+    TopicView.reopen({
+      stick: function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
+          stickFooter(footerId(this), '#main');
         });
-      }.observes('controller.currentPath', 'controller.model')
+      }.on('didInsertElement'),
+
+      unstick: function () {
+        unstickFooter(footerId(this), '#main');
+      }.on('willDestroyElement'),
     });
 
-
-    LoadingView.reopen({
-      didInsertElement: function() {
-        this._super();
-        stickFooter('#' + this.siteSettings.sticky_footer_id);
-      },
-      pathChanged: function() {
-        Ember.run.scheduleOnce('beforeRender', this, function() {
-          console.log('this is from the loading view change');
-          stickFooter('#' + this.siteSettings.sticky_footer_id);
+    PostView.reopen({
+      stick: function () {
+        Ember.run.scheduleOnce('afterRender', this, function () {
+          stickFooter(footerId(this), '#main');
         });
-      }.observes('controller.currentPath', 'controller.model')
+      }.on('didInsertElement'),
+
+      unstick: function () {
+        unstickFooter(footerId(this), '#main');
+      }.on('willDestroyElement'),
     });
   }
 }
