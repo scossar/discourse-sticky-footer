@@ -86,7 +86,6 @@ export default {
     LoadingView.reopen({
       didInsertElement: function() {
         this._super();
-        console.log('this is from the loading view init');
         stickFooter('#' + this.siteSettings.sticky_footer_id);
       },
       pathChanged: function() {
