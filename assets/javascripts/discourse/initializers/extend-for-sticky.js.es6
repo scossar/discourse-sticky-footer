@@ -47,8 +47,9 @@ export default {
       }.on('didInsertElement').observes('controller.currentPath'),
 
       unstick: function () {
-        unstickFooter(footerId(this), '#main');
-      }.on('willDestroyElement'),
+          console.log('unstick destroy');
+          unstickFooter(footerId(this), '#main');
+      }.on('willDestroyElement').observes('controller.currentPath'),
     });
 
     DiscoveryCategorysView.reopen({
