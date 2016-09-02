@@ -1,5 +1,7 @@
 ## Sticky Footer
 
+*note: This plugin is broken. It has not been updated to use the Discourse plugin api. This is example code only.*
+
 This plugin is to make custom footers that have been added to Discourse forums stick to the
 bottom of the 'page'. It defaults to targeting footers with an ID of `#sticky-footer`.
 The target footer ID can be chaged in the plugin's settings.
